@@ -50,7 +50,7 @@ export const ThemeRegistry = (props: {
   const colorMode = React.useMemo(
     () => ({
       selectedMode,
-      toggleColorMode: (colorMode: 'light' | 'dark' | 'device') => {
+      toggleColorMode: (colorMode: ColorModeChoice) => {
         Cookies.set('colorMode', colorMode);
         setSelectedMode(colorMode);
       },
