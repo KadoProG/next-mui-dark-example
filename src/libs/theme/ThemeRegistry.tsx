@@ -6,6 +6,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Cookies from 'js-cookie';
 import React from 'react';
 import { LoadingContainer } from '@/components/LoadingContainer';
+import { NextAppDirEmotionCacheProvider } from '@/libs/theme/EmotionCache';
 
 /**カラーモードの選択オプション */
 export type ColorModeChoice = 'light' | 'dark' | 'device';
@@ -76,14 +77,16 @@ export const ThemeRegistry = (props: {
   }, []);
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <LoadingContainer isLoading={!mounted}>
-          <CssBaseline />
-          {props.children}
-        </LoadingContainer>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+    <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <LoadingContainer isLoading={!mounted}>
+            <CssBaseline />
+            {props.children}
+          </LoadingContainer>
+        </ThemeProvider>
+      </ColorModeContext.Provider>
+    </NextAppDirEmotionCacheProvider>
   );
 };
 
