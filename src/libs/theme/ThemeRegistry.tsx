@@ -3,6 +3,7 @@
 import { PaletteMode, useMediaQuery } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Cookies from 'js-cookie';
 import React from 'react';
 
 /**カラーモードの選択オプション */
@@ -24,14 +25,18 @@ const ColorModeContext = React.createContext<ColorModeContextType>({
 });
 
 /**MUIの設定プロバイダ */
-export const ThemeRegistry = (props: { children: React.ReactNode }) => {
+export const ThemeRegistry = (props: {
+  children: React.ReactNode;
+  initColorMode: ColorModeChoice;
+}) => {
   const prefersInit = useMediaQuery('(prefers-color-scheme: dark)')
     ? 'dark'
     : 'light';
 
   // ユーザが選択しているカラーモード
-  const [selectedMode, setSelectedMode] =
-    React.useState<ColorModeChoice>('light');
+  const [selectedMode, setSelectedMode] = React.useState<ColorModeChoice>(
+    props.initColorMode
+  );
 
   /** 適用されるカラーモードの設定 */
   const mode = React.useMemo<PaletteMode>(
@@ -44,6 +49,7 @@ export const ThemeRegistry = (props: { children: React.ReactNode }) => {
     () => ({
       selectedMode,
       toggleColorMode: (colorMode: 'light' | 'dark' | 'device') => {
+        Cookies.set('colorMode', colorMode);
         setSelectedMode(colorMode);
       },
     }),

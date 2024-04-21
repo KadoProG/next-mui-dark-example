@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { ThemeRegistry } from '@/libs/theme/ThemeRegistry';
+import { cookies } from 'next/headers';
+import { ColorModeChoice, ThemeRegistry } from '@/libs/theme/ThemeRegistry';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -14,10 +15,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Cookieから保存されたカラーモードを取得
+  const preColorMode = cookies().get('colorMode')?.value;
+  const initColorMode: ColorModeChoice =
+    preColorMode === 'light' || preColorMode === 'dark'
+      ? preColorMode
+      : 'device';
   return (
     <html lang="ja">
       <body className={inter.className}>
-        <ThemeRegistry>{children}</ThemeRegistry>
+        <ThemeRegistry initColorMode={initColorMode}>{children}</ThemeRegistry>
       </body>
     </html>
   );
