@@ -1,3 +1,7 @@
+# Next.js ✕ MUI のライト・ダークモードテンプレート
+
+https://qiita.com/KadoProG/items/15ceebf1aef774690bdf
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
