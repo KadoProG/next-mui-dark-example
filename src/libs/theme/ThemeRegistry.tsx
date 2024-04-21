@@ -68,9 +68,11 @@ export const ThemeRegistry = (props: {
   );
 
   // ロード時にLoading画面を表示する
-  const [mounted, setMounted] = React.useState<boolean>(
-    props.initColorMode !== 'device' // デバイスモード時にfalseを表示し、Loadingが表示されるようにする
-  );
+  const [mounted, setMounted] = React.useState<boolean>(false);
+  // デバイス設定のみLoadingを入れたい場合はこちらを有効に
+  // const [mounted, setMounted] = React.useState<boolean>(
+  //   props.initColorMode !== 'device' // デバイスモード時にfalseを表示し、Loadingが表示されるようにする
+  // );
 
   React.useEffect(() => {
     setMounted(true);
