@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { cookies } from 'next/headers';
 import { ColorModeChoice, ThemeRegistry } from '@/libs/theme/ThemeRegistry';
+import '@/app/globals.scss';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,8 +22,14 @@ export default function RootLayout({
     preColorMode === 'light' || preColorMode === 'dark'
       ? preColorMode
       : 'device';
+
+  // 初期表示のカスタムスタイルを適用
+  let style: any = {};
+  if (['light', 'dark'].includes(initColorMode)) {
+    style['--init-background'] = initColorMode === 'dark' ? '#333' : '#fff';
+  }
   return (
-    <html lang="ja">
+    <html lang="ja" style={style}>
       <body className={inter.className}>
         <ThemeRegistry initColorMode={initColorMode}>{children}</ThemeRegistry>
       </body>
