@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Cookies from 'js-cookie';
 import React from 'react';
+import { LoadingContainer } from '@/components/LoadingContainer';
 
 /**カラーモードの選択オプション */
 export type ColorModeChoice = 'light' | 'dark' | 'device';
@@ -65,11 +66,22 @@ export const ThemeRegistry = (props: {
     [mode]
   );
 
+  // ロード時にLoading画面を表示する
+  const [mounted, setMounted] = React.useState<boolean>(
+    props.initColorMode !== 'device' // デバイスモード時にfalseを表示し、Loadingが表示されるようにする
+  );
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {props.children}
+        <LoadingContainer isLoading={!mounted}>
+          <CssBaseline />
+          {props.children}
+        </LoadingContainer>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
