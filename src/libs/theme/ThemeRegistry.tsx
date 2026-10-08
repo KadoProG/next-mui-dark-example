@@ -26,6 +26,9 @@ const ColorModeContext = React.createContext<ColorModeContextType>({
   },
 });
 
+/**購読するものが無い useSyncExternalStore 用の subscribe */
+const subscribeNothing = () => () => {};
+
 /**MUIの設定プロバイダ */
 export const ThemeRegistry = (props: {
   children: React.ReactNode;
@@ -67,16 +70,18 @@ export const ThemeRegistry = (props: {
     [mode]
   );
 
-  // ロード時にLoading画面を表示する
-  const [mounted, setMounted] = React.useState<boolean>(false);
+  // ロード時にLoading画面を表示する（サーバー描画とハイドレーション中は false、その後 true）
+  const mounted = React.useSyncExternalStore(
+    subscribeNothing,
+    () => true,
+    () => false
+  );
   // デバイス設定のみLoadingを入れたい場合はこちらを有効に
-  // const [mounted, setMounted] = React.useState<boolean>(
-  //   props.initColorMode !== 'device' // デバイスモード時にfalseを表示し、Loadingが表示されるようにする
+  // const mounted = React.useSyncExternalStore(
+  //   subscribeNothing,
+  //   () => true,
+  //   () => props.initColorMode !== 'device' // デバイスモード時にfalseを表示し、Loadingが表示されるようにする
   // );
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>

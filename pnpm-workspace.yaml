@@ -1,0 +1,7 @@
+# 公開から 1 日経っていない版は入れない（乗っ取られた版が出回ってすぐ取り下げられる、というサプライチェーン攻撃を避ける）
+minimumReleaseAge: 1440
+
+# 依存のビルドスクリプト（postinstall など）は既定で動かさない。どちらも配布済みのバイナリを使うので不要
+allowBuilds:
+  '@parcel/watcher': false
+  unrs-resolver: false
