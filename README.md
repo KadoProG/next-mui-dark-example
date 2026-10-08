@@ -6,16 +6,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+Node.js と pnpm のバージョンは [mise](https://mise.jdx.dev/) で揃えています（`mise.toml`）。
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+mise install   # mise.toml の Node.js / pnpm を入れる
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
